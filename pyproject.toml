@@ -1,0 +1,22 @@
+
+[build-system]
+requires = ["scikit-build-core>=0.10.1", "pybind11>=2.10"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "rmsynth"
+version = "0.0.1"
+description = "Reed–Muller decoding-based optimizer for linear-phase quantum circuits"
+authors = [{ name = "David Nizovsky" }]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[tool.scikit-build]
+wheel.packages = ["src/api/python/rmsynth"]
+wheel.install-dir = "rmsynth"
+sdist.include = ["src/**", "README.md", "LICENSE"]
+cmake.source-dir = "."
+
+[project.scripts]
+rmsynth-optimize = "rmsynth.cli:main"
