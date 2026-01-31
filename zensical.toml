@@ -1,0 +1,34 @@
+[project]
+site_name = "rmsynth"
+site_url = "https://super-quantum.github.io/rmsynth/"
+extra_javascript = [
+    "javascripts/mathjax.js",
+    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
+]
+nav = [
+    { "Overview" = "index.md" },
+    { "1. Background & Theory" = "background.md" },
+    { "2. Architecture of the library" = "architecture.md" },
+    { "3. Core phase-polynomial toolkit" = "core-toolkit.md" },
+    { "4. The C++ Core (rmcore)" = "cpp-core.md" },
+    { "5. Decoding strategies and policies (decoders.py)" = "decoding-strategies.md" },
+    { "6. Optimization pipeline (optimizer.py)" = "optimization.md" },
+    { "7. Multi-order optimization (rotk.py)" = "multi-order.md" },
+    { "8. OSD module (osd.py)" = "osd-module.md" },
+    { "9. Caching, contracts, and reports" = "caching-contracts.md" },
+    { "10. Autotuning and benchmarking" = "autotuning.md" },
+    { "11. CLI and integration" = "cli.md" },
+    { "12. Environment variables and configuration" = "configuration.md" },
+    { "13. References" = "references.md" },
+]
+
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.snippets]
+[project.markdown_extensions.pymdownx.superfences]
