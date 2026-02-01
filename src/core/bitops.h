@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <cassert>
 #include <algorithm>
+#include <bit>
 
 // Lightweight bit-vector utilities.
 //
@@ -76,13 +77,7 @@ struct BitVec {
         #endif
         for (std::size_t i=0;i<M;++i){
             uint64_t x = w[i];
-            #if defined(__GNUG__) || defined(__clang__)
-                // Use builtin popcount when available.
-                s += __builtin_popcountll(x);
-            #else
-                // Portable fallback: clear lowest set bit repeatedly.
-                while (x){ x &= (x-1); ++s; }
-            #endif
+            s += std::popcount(x);
         }
         return s;
     }
@@ -127,11 +122,7 @@ inline int hamming_distance_words(const uint64_t* a, const uint64_t* b, std::siz
     #endif
     for (std::size_t i=0;i<M;++i){
         uint64_t x = a[i] ^ b[i];
-        #if defined(__GNUG__) || defined(__clang__)
-            s += __builtin_popcountll(x);
-        #else
-            while (x){ x &= (x-1); ++s; }
-        #endif
+        s += std::popcount(x);
     }
     return s;
 }

@@ -15,7 +15,7 @@
 ### Prerequisites
 
 - Python 3.9+ (3.10/3.11 recommended)
-- A C++17 compiler (Apple Clang / GCC / MSVC)
+- A C++20 compiler (Apple Clang / GCC / MSVC)
 - CMake 3.18+
 - `pip`, `setuptools`, `wheel`
 

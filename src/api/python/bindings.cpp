@@ -63,6 +63,14 @@ static inline uint64_t hash_bitvec(const BitVec& b){
     return h;
 }
 
+struct ListDecodeCand {
+    int dist;
+    int depth;
+    uint64_t key;
+    BitVec full;
+    BitVec punct;
+};
+
 PYBIND11_MODULE(rmcore, m) {
     // Core RM code utilities
 
@@ -239,15 +247,7 @@ PYBIND11_MODULE(rmcore, m) {
 
               BitVec w = bytes_to_bitvec(w_punct_bytes, L);
 
-              struct Cand {
-                  int dist;
-                  int depth;
-                  uint64_t key;
-                  BitVec full;
-                  BitVec punct;
-              };
-
-              std::vector<Cand> pool;
+              std::vector<ListDecodeCand> pool;
               pool.reserve(2 * std::max(1, list_size));
 
               auto consider = [&](bool b0){
@@ -259,7 +259,7 @@ PYBIND11_MODULE(rmcore, m) {
                       int dist  = diff.weight();
                       int depth = estimate_tdepth_from_punctured(diff, n);
                       uint64_t key = hash_bitvec(c_punct);
-                      pool.push_back(Cand{dist, depth, key, cand.code, c_punct});
+                      pool.push_back(ListDecodeCand{dist, depth, key, cand.code, c_punct});
                   }
               };
 
@@ -268,7 +268,7 @@ PYBIND11_MODULE(rmcore, m) {
 
               // Deduplicate by the punctured bytes so that we never return the same candidate more than once, even if it arises from both choices of b0.
               std::unordered_set<std::string> seen;
-              std::vector<Cand> uniq;
+              std::vector<ListDecodeCand> uniq;
               uniq.reserve(pool.size());
               for (auto &c : pool){
                   auto v = c.punct.to_bytes_le();
@@ -280,7 +280,7 @@ PYBIND11_MODULE(rmcore, m) {
 
               // Sort by (distance, depth, hash) and keep the top_k.
               std::sort(uniq.begin(), uniq.end(),
-                        [](const Cand& A, const Cand& B){
+                        [](const ListDecodeCand& A, const ListDecodeCand& B){
                             if (A.dist != B.dist) return A.dist < B.dist;
                             if (A.depth != B.depth) return A.depth < B.depth;
                             return A.key < B.key;

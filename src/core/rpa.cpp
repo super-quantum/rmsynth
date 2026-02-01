@@ -106,13 +106,7 @@ static BitVec rpa1_iter(const BitVec& y, int r, int n){
                     if (!x) continue;
                     std::size_t base = w<<6;
                     while (x){
-                        unsigned long idx;
-                        #if defined(__GNUG__) || defined(__clang__)
-                            idx = (unsigned long)__builtin_ctzll(x);
-                        #else
-                            // Portable ctzll: count trailing zeros manually.
-                            idx = 0; uint64_t yx=x; while ((yx & 1ull)==0){ ++idx; yx >>= 1; }
-                        #endif
+                        unsigned long idx = std::countr_zero(x);
                         std::size_t i = base + (std::size_t)idx;
                         if (i < (std::size_t)N) local[i] += 1;
                         x &= (x - 1);  // clear lowest set bit
@@ -144,12 +138,7 @@ static BitVec rpa1_iter(const BitVec& y, int r, int n){
                         if (!x) continue;
                         std::size_t base = w<<6;
                         while (x){
-                            unsigned long idx;
-                            #if defined(__GNUG__) || defined(__clang__)
-                                idx = (unsigned long)__builtin_ctzll(x);
-                            #else
-                                idx = 0; uint64_t yx=x; while ((yx & 1ull)==0){ ++idx; yx >>= 1; }
-                            #endif
+                            unsigned long idx = std::countr_zero(x);
                             std::size_t i = base + (std::size_t)idx;
                             if (i < (std::size_t)N) local[i] += 1;
                             x &= (x - 1);
@@ -180,12 +169,7 @@ static BitVec rpa1_iter(const BitVec& y, int r, int n){
                 if (!x) continue;
                 std::size_t base = w<<6;
                 while (x){
-                    unsigned long idx;
-                    #if defined(__GNUG__) || defined(__clang__)
-                        idx = (unsigned long)__builtin_ctzll(x);
-                    #else
-                        idx = 0; uint64_t yx=x; while ((yx & 1ull)==0){ ++idx; yx >>= 1; }
-                    #endif
+                    unsigned long idx = std::countr_zero(x);
                     std::size_t i = base + (std::size_t)idx;
                     if (i < (std::size_t)N) votes[i] += 1;
                     x &= (x - 1);

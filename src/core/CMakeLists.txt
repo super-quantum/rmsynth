@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 project(rmsynth_core LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(RMSYNTH_CORE_SOURCES
@@ -26,7 +26,6 @@ set(RMSYNTH_CORE_HEADERS
     rm_code.h
     rpa.h
     tdepth.h
-    util.h
 )
 
 add_library(rmsynth_core STATIC ${RMSYNTH_CORE_SOURCES})

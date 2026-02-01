@@ -1,9 +1,10 @@
 #include "rm_code.h"
 #include <vector>
 #include <cstdint>
+#include <bit>
 
 // Small helper: Hamming weight of a 32-bit integer.
-static inline int weight(unsigned x){ return __builtin_popcount(x); }
+static inline int weight(unsigned x){ return std::popcount(x); }
 
 // Build generator rows for (punctured) RM(r,n).
 //

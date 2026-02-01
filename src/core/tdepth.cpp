@@ -5,6 +5,7 @@
 #include <limits>
 #include <vector>
 #include <string>
+#include <bit>
 
 // Existing T-depth estimator (safe upper bound)
 
@@ -38,23 +39,8 @@ int estimate_tdepth_from_punctured(const BitVec& odd_punct, int /*n*/) {
 
 namespace {
 
-static inline int popcount_u64(uint64_t x) {
-#if defined(_MSC_VER)
-    // MSVC: use __popcnt64
-    return static_cast<int>(__popcnt64(x));
-#else
-    return __builtin_popcountll(static_cast<unsigned long long>(x));
-#endif
-}
-
 static inline int ctz_u64(uint64_t x) {
-#if defined(_MSC_VER)
-    unsigned long idx;
-    _BitScanForward64(&idx, x);
-    return static_cast<int>(idx);
-#else
-    return __builtin_ctzll(static_cast<unsigned long long>(x));
-#endif
+    return std::countr_zero(x);
 }
 
 // Read an integer environment variable, with default and clamping to >= 0.
@@ -179,7 +165,7 @@ struct DSAT {
     int pick_vertex() const {
         int bestV = -1, bestSat = -1, bestDeg = -1;
         for (int v = 0; v < N; ++v) if (color[v] < 0) {
-            int sat = popcount_u64(satMask[v]);
+            int sat = std::popcount(satMask[v]);
             int deg = G.degree[v];
             if (sat > bestSat || (sat == bestSat && deg > bestDeg)) {
                 bestSat = sat; bestDeg = deg; bestV = v;

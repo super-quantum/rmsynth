@@ -1,7 +1,7 @@
 #include "decode_bruteforce.h"
 #include "rm_code.h"
-#include "util.h"
 #include <limits>
+#include <bit>
 
 // Exhaustive decoder for RM(r,n).  This walks through all 2^k possible coefficient vectors u (where k is the dimension of RM(r,n)), forms the
 // corresponding codeword, and picks the one with minimum Hamming distance to the received word w_bits.
@@ -28,7 +28,7 @@ DecodeResult decode_rm_bruteforce(uint64_t w_bits, int n, int r){
         for (int i=0;i<m;++i)
             if ((u>>i)&1) cw ^= rows[i];   // accumulate selected rows (XOR over F2)
 
-        int dist = popcount64(w_bits ^ cw); // Hamming distance to received word
+        int dist = std::popcount(w_bits ^ cw); // Hamming distance to received word
 
         // Keep the best candidate, with deterministic tie-breaking: we prefer smaller distance, and among equal-distance codewords we prefer the lexicographically smaller packed word.
         if (dist < best_dist || (dist == best_dist && cw < best_word)){
