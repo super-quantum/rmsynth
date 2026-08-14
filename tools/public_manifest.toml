@@ -1,0 +1,61 @@
+allowed_top_level = [
+  ".clang-format",
+  ".github",
+  ".gitignore",
+  "CMakeLists.txt",
+  "CHANGELOG.md",
+  "CITATION.cff",
+  "CODE_OF_CONDUCT.md",
+  "CONTRIBUTING.md",
+  "LICENSE",
+  "README.md",
+  "SECURITY.md",
+  "SUPPORT.md",
+  "cpp",
+  "docs",
+  "examples",
+  "pyproject.toml",
+  "src",
+  "tests",
+  "tools",
+]
+
+allowed_source = [
+  "src/rmsynth_reference/__init__.py",
+  "src/rmsynth_reference/_native.pyi",
+  "src/rmsynth_reference/_version.py",
+  "src/rmsynth_reference/cli.py",
+  "src/rmsynth_reference/decoder.py",
+  "src/rmsynth_reference/errors.py",
+  "src/rmsynth_reference/io.py",
+  "src/rmsynth_reference/limits.py",
+  "src/rmsynth_reference/model.py",
+  "src/rmsynth_reference/optimizer.py",
+  "src/rmsynth_reference/py.typed",
+  "src/rmsynth_reference/reed_muller.py",
+  "src/rmsynth_reference/report.py",
+  "src/rmsynth_reference/schemas/circuit-v1.schema.json",
+  "src/rmsynth_reference/schemas/report-v1.schema.json",
+  "src/rmsynth_reference/semantics.py",
+  "src/rmsynth_reference/synthesis.py",
+  "src/rmsynth_reference/verify.py",
+]
+
+allowed_cpp = [
+  "cpp/include/rmsynth_reference/core.hpp",
+  "cpp/src/bindings.cpp",
+  "cpp/src/core.cpp",
+  "cpp/tests/core_tests.cpp",
+]
+
+forbidden_suffixes = [
+  ".a",
+  ".dylib",
+  ".dll",
+  ".DS_Store",
+  ".o",
+  ".obj",
+  ".pyd",
+  ".pyc",
+  ".so",
+]

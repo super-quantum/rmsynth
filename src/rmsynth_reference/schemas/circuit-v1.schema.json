@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "operations": {
+      "items": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "control": {"minimum": 0, "type": "integer"},
+              "gate": {"const": "cnot"},
+              "target": {"minimum": 0, "type": "integer"}
+            },
+            "required": ["gate", "control", "target"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "exponent": {"maximum": 7, "minimum": 0, "type": "integer"},
+              "gate": {"const": "phase"},
+              "qubit": {"minimum": 0, "type": "integer"}
+            },
+            "required": ["gate", "qubit", "exponent"],
+            "type": "object"
+          }
+        ]
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "qubits": {"maximum": 10, "minimum": 1, "type": "integer"},
+    "schema": {"const": "rmsynth-reference/circuit-v1"}
+  },
+  "required": ["schema", "qubits", "operations"],
+  "title": "RMSynth Reference circuit",
+  "type": "object"
+}

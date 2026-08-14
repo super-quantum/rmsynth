@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "after_t_count": {"minimum": 0, "type": "integer"},
+    "before_t_count": {"minimum": 0, "type": "integer"},
+    "candidates": {"minimum": 1, "type": "integer"},
+    "input_digest": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "limits": {
+      "additionalProperties": false,
+      "properties": {
+        "decoder_candidates": {"const": 65536},
+        "input_bytes": {"const": 1048576},
+        "operations": {"const": 10000},
+        "optimizer_qubits": {"const": 5},
+        "verifier_qubits": {"const": 10}
+      },
+      "required": [
+        "decoder_candidates",
+        "input_bytes",
+        "operations",
+        "optimizer_qubits",
+        "verifier_qubits"
+      ],
+      "type": "object"
+    },
+    "output_digest": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "qubits": {"minimum": 1, "type": "integer"},
+    "reason": {"type": "string"},
+    "reed_muller_order": {"minimum": -1, "type": "integer"},
+    "schema": {"const": "rmsynth-reference/report-v1"},
+    "semantic_digest": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "status": {"enum": ["improved", "unchanged"]},
+    "ties": {"minimum": 1, "type": "integer"},
+    "tool_version": {"type": "string"},
+    "verified": {"const": true}
+  },
+  "required": [
+    "after_t_count",
+    "before_t_count",
+    "candidates",
+    "input_digest",
+    "limits",
+    "output_digest",
+    "qubits",
+    "reason",
+    "reed_muller_order",
+    "schema",
+    "semantic_digest",
+    "status",
+    "ties",
+    "tool_version",
+    "verified"
+  ],
+  "title": "RMSynth Reference optimization report",
+  "type": "object"
+}

@@ -1,0 +1,41 @@
+name: Bug report
+description: Report reproducible behavior within the supported scope
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Check docs/scope.md before filing. Security reports must use private vulnerability reporting.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: rmsynth-ref 0.1.0rc1
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include the command and smallest circuit JSON that demonstrates the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system and Python version
+    validations:
+      required: true
