@@ -1,22 +1,91 @@
-
 [build-system]
-requires = ["scikit-build-core>=0.10.1", "pybind11>=2.10"]
+requires = ["scikit-build-core>=0.11", "pybind11>=2.13"]
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "rmsynth"
-version = "0.0.1"
-description = "Reed–Muller decoding-based optimizer for linear-phase quantum circuits"
-authors = [{ name = "David Nizovsky" }]
+name = "rmsynth-reference"
+version = "0.1.0rc1"
+description = "A small reference implementation for CNOT-phase circuit optimization"
 readme = "README.md"
-requires-python = ">=3.9"
-dependencies = []
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [{ name = "David Nizovsky" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: C++",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering",
+  "Typing :: Typed",
+]
 
-[tool.scikit-build]
-wheel.packages = ["src/api/python/rmsynth"]
-wheel.install-dir = "rmsynth"
-sdist.include = ["src/**", "README.md", "LICENSE"]
-cmake.source-dir = "."
+[project.optional-dependencies]
+dev = [
+  "build>=1.2",
+  "check-wheel-contents>=0.6",
+  "clang-format==22.1.8",
+  "hypothesis>=6.120",
+  "jsonschema>=4.23",
+  "mypy>=1.14",
+  "pybind11>=2.13",
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "pytest-timeout>=2.3",
+  "ruff>=0.9",
+  "twine>=6.0",
+]
 
 [project.scripts]
-rmsynth-optimize = "rmsynth.cli:main"
+rmsynth-ref = "rmsynth_reference.cli:main"
+
+[project.urls]
+Repository = "https://github.com/super-quantum/rmsynth"
+Issues = "https://github.com/super-quantum/rmsynth/issues"
+
+[tool.scikit-build]
+minimum-version = "build-system.requires"
+wheel.packages = ["src/rmsynth_reference"]
+cmake.build-type = "Release"
+sdist.exclude = [
+  "**/.DS_Store",
+  "**/__pycache__/**",
+  "**/*.pyc",
+  ".coverage",
+  ".venv/**",
+  "build/**",
+  "dist/**",
+]
+
+[tool.scikit-build.cmake.define]
+BUILD_TESTING = "OFF"
+RMSYNTH_BUILD_PYTHON = "ON"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers --timeout=10"
+testpaths = ["tests"]
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+branch = true
+source = ["rmsynth_reference"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true

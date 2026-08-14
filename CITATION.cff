@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, cite it using the metadata below."
+title: "RMSynth Reference Edition"
+type: software
+version: 0.1.0rc1
+license: Apache-2.0
+authors:
+  - family-names: Nizovsky
+    given-names: David
+repository-code: "https://github.com/super-quantum/rmsynth"

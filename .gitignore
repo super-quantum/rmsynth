@@ -2,3 +2,12 @@
 .idea/
 **/__pycache__/
 **/.DS_Store
+.coverage
+.hypothesis/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+build/
+dist/
+htmlcov/

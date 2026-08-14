@@ -1,0 +1,16 @@
+{
+  "operations": [
+    {
+      "exponent": 1,
+      "gate": "phase",
+      "qubit": 0
+    },
+    {
+      "exponent": 1,
+      "gate": "phase",
+      "qubit": 0
+    }
+  ],
+  "qubits": 1,
+  "schema": "rmsynth-reference/circuit-v1"
+}
